@@ -330,6 +330,7 @@ static void increase_brightness(void)
 
         // Check if we should turn screen on
         if (should_screen_turn_on(current_brightness, brightness_modifier) && off_through_modifier)
+        {
             screen_set_on(true);
         }
     }
