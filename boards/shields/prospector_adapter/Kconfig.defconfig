@@ -118,4 +118,11 @@ config DONGLE_SCREEN_BRIGHTNESS_STEP
     help
       How much brightness steps (range MIN_BRIGHTNESS to MAX_BRIGHTNESS) should be applied per keystroke
 
+config DONGLE_SCREEN_BRIGHTNESS_MODIFIER
+    int "The modifier to start the application with."
+    default 0
+    range -99 99
+    help
+      The modifier to start the dongle with. Useful if you found a modifier comfortable for you. Espacially for ambient light. Otherwise no need to change.
+
 endif
