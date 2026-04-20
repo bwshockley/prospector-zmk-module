@@ -59,4 +59,63 @@ config PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR
     select SENSOR
     select APDS9960
 
+config DONGLE_SCREEN_IDLE_TIMEOUT_S
+    int "Screen idle timeout in seconds (0 = never off)"
+    default 600
+    help
+      Time in seconds after which the screen turns off when idle. 0 = never off.
+
+config DONGLE_SCREEN_MAX_BRIGHTNESS
+    int "Maximum screen brightness (1-100)"
+    default 80
+    range 1 100
+    help
+        This is the brightness which is used when the dongle is powered on. This is also the maximum brightness used by the dimmer.
+
+config DONGLE_SCREEN_MIN_BRIGHTNESS
+    int "Minimum screen brightness (1-99)"
+    default 1
+    range 1 99
+    help
+        Minimum screen brightness (1-99). This is the brightness used as a minimum value for brightness adjustments with the modifier keys and the ambient light sensor. 
+
+config DONGLE_SCREEN_DEFAULT_BRIGHTNESS
+    int "Default screen brightness (0-100)"
+    default DONGLE_SCREEN_MAX_BRIGHTNESS
+    range DONGLE_SCREEN_MIN_BRIGHTNESS DONGLE_SCREEN_MAX_BRIGHTNESS
+    help
+      The initial brightness level for the screen backlight.
+      This value is used at startup and when the screen is turned on. 
+      It is defaulted to the maximum brightness but can be overridden.
+
+config DONGLE_SCREEN_BRIGHTNESS_KEYBOARD_CONTROL
+    bool "Control screen brightness via keyboard"
+    default y
+    help
+      Allows controlling the screen brightness via keyboard (e.g. F23/F24).
+
+config DONGLE_SCREEN_BRIGHTNESS_UP_KEYCODE
+    int "Keycode for increasing screen brightness"
+    default 115  # KC_F24
+    help
+      Keycode that increases the screen brightness (default: F23).
+
+config DONGLE_SCREEN_BRIGHTNESS_DOWN_KEYCODE
+    int "Keycode for decreasing screen brightness"
+    default 114  # KC_F23
+    help
+      Keycode that decreases the screen brightness (default: F24).
+
+config DONGLE_SCREEN_TOGGLE_KEYCODE
+    int "Keycode for toggle screen off/on"
+    default 113  # KC_F22
+    help
+      Keycode that toggles the screen off and on (default: F22).
+
+config DONGLE_SCREEN_BRIGHTNESS_STEP
+    int "Step for brightness adjustment with keyboard"
+    default 10
+    help
+      How much brightness steps (range MIN_BRIGHTNESS to MAX_BRIGHTNESS) should be applied per keystroke
+
 endif
