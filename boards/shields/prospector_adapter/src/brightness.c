@@ -25,9 +25,6 @@ static const struct device *pwm_leds_dev = DEVICE_DT_GET_ONE(pwm_leds);
 #define SCREEN_IDLE_TIMEOUT_MS (CONFIG_DONGLE_SCREEN_IDLE_TIMEOUT_S * 1000)
 #define BRIGHTNESS_CHANGE_THRESHOLD 5
 
-static const struct device *pwm_leds_dev = DEVICE_DT_GET_ONE(pwm_leds);
-#define DISP_BL DT_NODE_CHILD_IDX(DT_NODELABEL(disp_bl))
-
 static int64_t last_activity = 0;
 static uint8_t max_brightness = CONFIG_DONGLE_SCREEN_MAX_BRIGHTNESS;
 static uint8_t min_brightness = CONFIG_DONGLE_SCREEN_MIN_BRIGHTNESS;
