@@ -35,20 +35,20 @@ struct layer_state {
 static void wpm_meter_render(int active_bars) {
     struct zmk_widget_wpm_meter *widget;
     SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) {
+        lv_color_t active_color = lv_color_hex(0x000000);
+        if (active_bars >= .75 * WPM_BAR_COUNT) {
+            active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_TOP);
+        } else if (active_bars >= .50 * WPM_BAR_COUNT) {
+            active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_HIGH);
+        } else if (active_bars >= .25 * WPM_BAR_COUNT) {
+            active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_MED);
+        } else {
+            active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_LOW);
+        }  
         if (active_bars != prev_active_bars) {
             int min_bar = (active_bars < prev_active_bars) ? active_bars : prev_active_bars;
             int max_bar = (active_bars > prev_active_bars) ? active_bars : prev_active_bars;
             for (int i = min_bar; i < max_bar; i++) {
-                lv_color_t active_color = lv_color_hex(0x000000);
-                if (active_bars >= .75 * WPM_BAR_COUNT) {
-                    active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_TOP);
-                } else if (active_bars >= .50 * WPM_BAR_COUNT) {
-                    active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_HIGH);
-                } else if (active_bars >= .25 * WPM_BAR_COUNT) {
-                    active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_MED);
-                } else {
-                    active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_LOW);
-                }    
                 lv_color_t color = (i < active_bars)
                     ? active_color
                     : lv_color_hex(DISPLAY_COLOR_WPM_BAR_INACTIVE);
@@ -74,6 +74,7 @@ static void wpm_meter_render(int active_bars) {
         char wpm_text[4];
         snprintf(wpm_text, sizeof(wpm_text), "%d", (int)(displayed_wpm + 0.5f));
         lv_label_set_text(widget->wpm_label, wpm_text);
+        lv_obj_set_style_text_color(widget->wpm_label, active_color, LV_PART_MAIN);
     }
 }
 
