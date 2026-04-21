@@ -39,8 +39,17 @@ static void wpm_meter_render(int active_bars) {
             int min_bar = (active_bars < prev_active_bars) ? active_bars : prev_active_bars;
             int max_bar = (active_bars > prev_active_bars) ? active_bars : prev_active_bars;
             for (int i = min_bar; i < max_bar; i++) {
+                if (active_bars > .75 * WPM_MAX) {
+                    lv_color_t active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_TOP);
+                } else if (active_bars > .50 * WPM_MAX) {
+                    lv_color_t active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_HIGH);
+                } else if (active_bars > .25 * WPM_MAX) {
+                    lv_color_t active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_MED);
+                } else {
+                    lv_color_t active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_LOW);
+                }    
                 lv_color_t color = (i < active_bars)
-                    ? lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE)
+                    ? active_color
                     : lv_color_hex(DISPLAY_COLOR_WPM_BAR_INACTIVE);
                 lv_obj_set_style_bg_color(widget->bars[i], color, LV_PART_MAIN);
             }
