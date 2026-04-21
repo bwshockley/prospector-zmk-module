@@ -47,7 +47,7 @@ static void wpm_meter_render(int active_bars) {
                 } else if (active_bars > .25 * WPM_MAX) {
                     active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_MED);
                 } else {
-                    active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_LOW);
+                    active_color = lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE_TOP);
                 }    
                 lv_color_t color = (i < active_bars)
                     ? active_color
