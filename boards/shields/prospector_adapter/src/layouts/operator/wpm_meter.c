@@ -47,7 +47,7 @@ static void wpm_meter_render(int active_bars) {
         }  
         if (active_bars != prev_active_bars) {
             //int min_bar = (active_bars < prev_active_bars) ? active_bars : prev_active_bars;
-            int min_bar = 0;
+            int min_bar = 1;
             int max_bar = (active_bars > prev_active_bars) ? active_bars : prev_active_bars;
             for (int i = min_bar; i < max_bar; i++) {
                 lv_color_t color = (i < active_bars)
